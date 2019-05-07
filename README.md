@@ -46,6 +46,13 @@ And you can use any object as a key, not only strings:
     >> ns[:bar][42]
     => "foo:bar:42"
 
+You can also specify the separator:
+
+    >> ns = Nido.new("foo", "_")
+    => "foo"
+    >> ns[:bar][42]
+    => "foo_bar_42"
+
 In a more realistic tone, lets assume you are working with Redis and
 dealing with events:
 

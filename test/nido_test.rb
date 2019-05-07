@@ -33,3 +33,37 @@ scope do
     assert "foo:3" == n1[3]
   end
 end
+
+# Creating namespaces with custom separators
+scope do
+  test "return the namespace" do
+    n1 = Nido.new("foo", "_")
+    assert "foo" == n1
+  end
+
+  test "prepend the namespace" do
+    n1 = Nido.new("foo", "_")
+    assert "foo_bar" == n1["bar"]
+  end
+
+  test "work in more than one level" do
+    n1 = Nido.new("foo", "_")
+    n2 = Nido.new(n1["bar"], "|")
+    assert "foo_bar|baz" == n2["baz"]
+  end
+
+  test "be chainable" do
+    n1 = Nido.new("foo", "_")
+    assert "foo_bar_baz" == n1["bar"]["baz"]
+  end
+
+  test "accept symbols" do
+    n1 = Nido.new(:foo, :_)
+    assert "foo_bar" == n1[:bar]
+  end
+
+  test "accept numbers" do
+    n1 = Nido.new("foo", 0)
+    assert "foo03" == n1[3]
+  end
+end
